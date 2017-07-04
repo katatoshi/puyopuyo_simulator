@@ -2,7 +2,6 @@ package com.katatoshi.puyopuyosimulator.util.type
 
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.Test
-
 import org.junit.Assert.*
 
 class ResultTest {

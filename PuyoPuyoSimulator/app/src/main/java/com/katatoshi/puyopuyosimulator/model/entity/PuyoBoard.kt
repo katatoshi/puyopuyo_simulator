@@ -70,5 +70,8 @@ class PuyoBoard {
         }
     }
 
+    /**
+     * 座標を表すデータクラス。
+     */
     data class Coordinate(val row: Int, val column: Int)
 }

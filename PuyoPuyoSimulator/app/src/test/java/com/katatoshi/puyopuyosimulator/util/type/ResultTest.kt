@@ -7,10 +7,11 @@ import org.junit.Assert.*
 class ResultTest {
 
     @Test
-    fun Okを返す関数でOkをflatMapするとOkである() {
+    fun Int型の引数を3f倍した値のOkを返す関数で値が2のOkをflatMapすると値が6fのOkである() {
         val result = Result.Ok<Int, String>(2).flatMap { x -> Result.Ok<Float, String>(3f * x) }
 
         when (result) {
+            is Result.Ok -> assertThat(result.ok, `is`(6f))
             is Result.Error -> fail()
         }
     }

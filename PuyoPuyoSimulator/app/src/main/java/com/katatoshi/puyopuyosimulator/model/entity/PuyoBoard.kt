@@ -16,11 +16,12 @@ class PuyoBoard {
                     continue
                 }
 
-                val visitedSet = mutableSetOf<Coordinate>()
-
                 //region BFS
                 val rootCoordinate = Coordinate(row, column)
                 val bfsQueue = ArrayDeque(mutableListOf(rootCoordinate))
+
+                val visitedSet = mutableSetOf<Coordinate>()
+
                 while (bfsQueue.isNotEmpty()) {
                     val coordinate = bfsQueue.poll()
                     val current = board[coordinate.row][coordinate.column]

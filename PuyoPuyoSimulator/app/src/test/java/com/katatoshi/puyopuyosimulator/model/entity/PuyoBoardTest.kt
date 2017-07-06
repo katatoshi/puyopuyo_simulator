@@ -123,6 +123,43 @@ class PuyoBoardTest {
 
             assertThat(sut.toString(), `is`(expected))
         }
+
+        @Test
+        fun 隣接しているおじゃまぷよも消える() {
+            val test = """>|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >| O B O      |
+                          >| O B O      |
+                          >| O B O O    |
+                          >| O B O O    |
+                          >| O O O O    |
+                          >| O O O O O O|
+                          >| O O R G O O|
+                          >| R R R G G G|""".trimMargin(">")
+
+            val expected = """>|            |
+                              >|            |
+                              >|            |
+                              >|            |
+                              >|            |
+                              >|            |
+                              >|            |
+                              >|       O    |
+                              >|       O    |
+                              >| O   O O    |
+                              >| O O     O O|
+                              >|            |
+                              >|            |""".trimMargin(">")
+
+            val sut = test.toPuyoBoard()
+
+            sut.explode()
+
+            assertThat(sut.toString(), `is`(expected))
+        }
     }
 
     class toPuyoBoardのテスト {

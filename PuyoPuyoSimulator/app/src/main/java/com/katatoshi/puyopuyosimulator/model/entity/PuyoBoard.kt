@@ -18,6 +18,10 @@ class PuyoBoard {
                     continue
                 }
 
+                if (board[row][column] is PuyoType.OjamaPuyo) {
+                    continue
+                }
+
                 //region BFS
                 val rootCoordinate = Coordinate(row, column)
                 val visitedSet = mutableSetOf(rootCoordinate)
@@ -32,36 +36,68 @@ class PuyoBoard {
                     // 右に連結しているか調べる
                     if (coordinate.column < 5) {
                         val rightCoordinate = Coordinate(coordinate.row, coordinate.column + 1)
-                        if (!visitedSet.contains(rightCoordinate) && board[rightCoordinate.row][rightCoordinate.column]?.let { current == it } ?: false) {
-                            visitedSet.add(rightCoordinate)
-                            bfsQueue.offer(rightCoordinate)
+                        val right = board[rightCoordinate.row][rightCoordinate.column]
+                        if (!visitedSet.contains(rightCoordinate) && right != null) {
+                            when (right) {
+                                current -> {
+                                    visitedSet.add(rightCoordinate)
+                                    bfsQueue.offer(rightCoordinate)
+                                }
+                                PuyoType.OjamaPuyo(OjamaType.OJAMA) -> {
+                                    visitedSet.add(rightCoordinate)
+                                }
+                            }
                         }
                     }
 
                     // 上に連結しているか調べる
                     if (coordinate.row < 11) {
                         val topCoordinate = Coordinate(coordinate.row + 1, coordinate.column)
-                        if (!visitedSet.contains(topCoordinate) && board[topCoordinate.row][topCoordinate.column]?.let { current == it } ?: false) {
-                            visitedSet.add(topCoordinate)
-                            bfsQueue.offer(topCoordinate)
+                        val top = board[topCoordinate.row][topCoordinate.column]
+                        if (!visitedSet.contains(topCoordinate) && top != null) {
+                            when (top) {
+                                current -> {
+                                    visitedSet.add(topCoordinate)
+                                    bfsQueue.offer(topCoordinate)
+                                }
+                                PuyoType.OjamaPuyo(OjamaType.OJAMA) -> {
+                                    visitedSet.add(topCoordinate)
+                                }
+                            }
                         }
                     }
 
                     // 左に連結しているか調べる
                     if (0 < coordinate.column) {
                         val leftCoordinate = Coordinate(coordinate.row, coordinate.column - 1)
-                        if (!visitedSet.contains(leftCoordinate) && board[leftCoordinate.row][leftCoordinate.column]?.let { current == it } ?: false) {
-                            visitedSet.add(leftCoordinate)
-                            bfsQueue.offer(leftCoordinate)
+                        val left = board[leftCoordinate.row][leftCoordinate.column]
+                        if (!visitedSet.contains(leftCoordinate) && left != null) {
+                            when (left) {
+                                current -> {
+                                    visitedSet.add(leftCoordinate)
+                                    bfsQueue.offer(leftCoordinate)
+                                }
+                                PuyoType.OjamaPuyo(OjamaType.OJAMA) -> {
+                                    visitedSet.add(leftCoordinate)
+                                }
+                            }
                         }
                     }
 
                     // 下に連結しているか調べる
                     if (0 < coordinate.row) {
                         val bottomCoordinate = Coordinate(coordinate.row - 1, coordinate.column)
-                        if (!visitedSet.contains(bottomCoordinate) && board[bottomCoordinate.row][bottomCoordinate.column]?.let { current == it } ?: false) {
-                            visitedSet.add(bottomCoordinate)
-                            bfsQueue.offer(bottomCoordinate)
+                        val bottom = board[bottomCoordinate.row][bottomCoordinate.column]
+                        if (!visitedSet.contains(bottomCoordinate) && bottom != null) {
+                            when (bottom) {
+                                current -> {
+                                    visitedSet.add(bottomCoordinate)
+                                    bfsQueue.offer(bottomCoordinate)
+                                }
+                                PuyoType.OjamaPuyo(OjamaType.OJAMA) -> {
+                                    visitedSet.add(bottomCoordinate)
+                                }
+                            }
                         }
                     }
                 }

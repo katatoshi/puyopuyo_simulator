@@ -64,7 +64,7 @@ class PuyoBoardTest {
 
         @Test
         fun ぐねぐねした連結でもexplodeで消える() {
-            val test= """>|            |
+            val test = """>|            |
                          >|     R R R  |
                          >|         R  |
                          >|   R R R R R|
@@ -101,7 +101,7 @@ class PuyoBoardTest {
 
         @Test
         fun 連結していても4連結が一つもないなら何も消えない() {
-            val test= """>|            |
+            val test = """>|            |
                          >|            |
                          >|            |
                          >|            |

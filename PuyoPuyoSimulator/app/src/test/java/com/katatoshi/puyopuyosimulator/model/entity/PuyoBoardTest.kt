@@ -5,155 +5,161 @@ import com.katatoshi.puyopuyosimulator.model.vo.PuyoType
 
 import org.junit.Assert.*
 import org.junit.Test
+import org.junit.experimental.runners.Enclosed
+import org.junit.runner.RunWith
 
+@RunWith(Enclosed::class)
 class PuyoBoardTest {
 
-    val r = PuyoType.ColoredPuyo(ColorType.RED);
+    class explode関数のテスト {
 
-    val g = PuyoType.ColoredPuyo(ColorType.GREEN);
+        val r = PuyoType.ColoredPuyo(ColorType.RED)
 
-    val b = PuyoType.ColoredPuyo(ColorType.BLUE);
+        val g = PuyoType.ColoredPuyo(ColorType.GREEN)
 
-    val y = PuyoType.ColoredPuyo(ColorType.YELLOW);
+        val b = PuyoType.ColoredPuyo(ColorType.BLUE)
 
-    val v = PuyoType.ColoredPuyo(ColorType.VIOLET);
+        val y = PuyoType.ColoredPuyo(ColorType.YELLOW)
 
-    @Test
-    fun 幽霊まですべて同じ色で埋まっているフィールドをexplodeすると幽霊以外のすべてのぷよが消える() {
-        val testBoard = arrayOf(
-                arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
-                arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
-                arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
-                arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
-                arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
-                arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
-                arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
-                arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
-                arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
-                arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
-                arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
-                arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
-                arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   )
-        ).reversedArray()
+        val v = PuyoType.ColoredPuyo(ColorType.VIOLET)
 
-        val expectedBoard = arrayOf(
-                arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null)
-        ).reversedArray()
+        @Test
+        fun 幽霊まですべて同じ色で埋まっているフィールドをexplodeすると幽霊以外のすべてのぷよが消える() {
+            val testBoard = arrayOf(
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   )
+            ).reversedArray()
 
-        val sut = PuyoBoard()
+            val expectedBoard = arrayOf(
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null)
+            ).reversedArray()
 
-        for (row in 0..12) {
-            for (column in 0..5) {
-                sut.board[row][column] = testBoard[row][column]
+            val sut = PuyoBoard()
+
+            for (row in 0..12) {
+                for (column in 0..5) {
+                    sut.board[row][column] = testBoard[row][column]
+                }
+            }
+
+            sut.explode()
+
+            for (row in 0..12) {
+                for (column in 0..5) {
+                    assertEquals(expectedBoard[row][column], sut.board[row][column])
+                }
             }
         }
 
-        sut.explode()
+        @Test
+        fun ぐねぐねした連結でもexplodeで消える() {
+            val testBoard = arrayOf(
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, r   , r   , r   , null),
+                    arrayOf<PuyoType?>(null, null, null, null, r   , null),
+                    arrayOf<PuyoType?>(null, r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(null, r   , g   , g   , g   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , g   , r   , g   , r   ),
+                    arrayOf<PuyoType?>(null, r   , g   , r   , g   , r   ),
+                    arrayOf<PuyoType?>(null, r   , r   , r   , g   , r   ),
+                    arrayOf<PuyoType?>(null, null, r   , g   , g   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , g   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , g   , g   , r   , null),
+                    arrayOf<PuyoType?>(null, null, null, null, r   , null),
+                    arrayOf<PuyoType?>(null, r   , r   , r   , r   , null)
+            ).reversedArray()
 
-        for (row in 0..12) {
-            for (column in 0..5) {
-                assertEquals(expectedBoard[row][column], sut.board[row][column])
+            val expectedBoard = arrayOf(
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null)
+            ).reversedArray()
+
+            val sut = PuyoBoard()
+
+            for (row in 0..12) {
+                for (column in 0..5) {
+                    sut.board[row][column] = testBoard[row][column]
+                }
             }
-        }
-    }
 
-    @Test
-    fun ぐねぐねした連結でもexplodeで消える() {
-        val testBoard = arrayOf(
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, r   , r   , r   , null),
-                arrayOf<PuyoType?>(null, null, null, null, r   , null),
-                arrayOf<PuyoType?>(null, r   , r   , r   , r   , r   ),
-                arrayOf<PuyoType?>(null, r   , g   , g   , g   , r   ),
-                arrayOf<PuyoType?>(r   , r   , g   , r   , g   , r   ),
-                arrayOf<PuyoType?>(null, r   , g   , r   , g   , r   ),
-                arrayOf<PuyoType?>(null, r   , r   , r   , g   , r   ),
-                arrayOf<PuyoType?>(null, null, r   , g   , g   , r   ),
-                arrayOf<PuyoType?>(r   , r   , r   , g   , r   , r   ),
-                arrayOf<PuyoType?>(r   , r   , g   , g   , r   , null),
-                arrayOf<PuyoType?>(null, null, null, null, r   , null),
-                arrayOf<PuyoType?>(null, r   , r   , r   , r   , null)
-        ).reversedArray()
+            sut.explode()
 
-        val expectedBoard = arrayOf(
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null)
-        ).reversedArray()
-
-        val sut = PuyoBoard()
-
-        for (row in 0..12) {
-            for (column in 0..5) {
-                sut.board[row][column] = testBoard[row][column]
-            }
-        }
-
-        sut.explode()
-
-        for (row in 0..12) {
-            for (column in 0..5) {
-                assertEquals(expectedBoard[row][column], sut.board[row][column])
-            }
-        }
-    }
-
-    @Test
-    fun 連結していても4連結が一つもないなら何も消えない() {
-
-        val testBoard = arrayOf(
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, null),
-                arrayOf<PuyoType?>(null, null, null, null, null, v   ),
-                arrayOf<PuyoType?>(null, null, null, null, v   , v   ),
-                arrayOf<PuyoType?>(null, null, null, v   , y   , y   ),
-                arrayOf<PuyoType?>(b   , r   , b   , y   , g   , y   ),
-                arrayOf<PuyoType?>(b   , b   , r   , b   , b   , g   ),
-                arrayOf<PuyoType?>(r   , r   , y   , b   , g   , g   )
-        ).reversedArray()
-
-        val expectedBoard = testBoard
-
-        val sut = PuyoBoard()
-
-        for (row in 0..12) {
-            for (column in 0..5) {
-                sut.board[row][column] = testBoard[row][column]
+            for (row in 0..12) {
+                for (column in 0..5) {
+                    assertEquals(expectedBoard[row][column], sut.board[row][column])
+                }
             }
         }
 
-        sut.explode()
+        @Test
+        fun 連結していても4連結が一つもないなら何も消えない() {
 
-        for (row in 0..12) {
-            for (column in 0..5) {
-                assertEquals(expectedBoard[row][column], sut.board[row][column])
+            val testBoard = arrayOf(
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, v   ),
+                    arrayOf<PuyoType?>(null, null, null, null, v   , v   ),
+                    arrayOf<PuyoType?>(null, null, null, v   , y   , y   ),
+                    arrayOf<PuyoType?>(b   , r   , b   , y   , g   , y   ),
+                    arrayOf<PuyoType?>(b   , b   , r   , b   , b   , g   ),
+                    arrayOf<PuyoType?>(r   , r   , y   , b   , g   , g   )
+            ).reversedArray()
+
+            val expectedBoard = testBoard
+
+            val sut = PuyoBoard()
+
+            for (row in 0..12) {
+                for (column in 0..5) {
+                    sut.board[row][column] = testBoard[row][column]
+                }
+            }
+
+            sut.explode()
+
+            for (row in 0..12) {
+                for (column in 0..5) {
+                    assertEquals(expectedBoard[row][column], sut.board[row][column])
+                }
             }
         }
     }

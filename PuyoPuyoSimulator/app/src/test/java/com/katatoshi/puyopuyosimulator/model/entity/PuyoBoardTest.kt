@@ -310,20 +310,19 @@ class PuyoBoardTest {
 
         @Test
         fun ぐねぐねした連結のフィールド文字列をtoPuyoBoard() {
-            val testString =
-                    """>|            |
-                       >|     R R R  |
-                       >|         R  |
-                       >|   R R R R R|
-                       >|   R G G G R|
-                       >| R R G R G R|
-                       >|   R G R G R|
-                       >|   R R R G R|
-                       >|     R G G R|
-                       >| R R R G R R|
-                       >| R R G G R  |
-                       >|         R  |
-                       >|   R R R R  |""".trimMargin(">")
+            val testString = """>|            |
+                                >|     R R R  |
+                                >|         R  |
+                                >|   R R R R R|
+                                >|   R G G G R|
+                                >| R R G R G R|
+                                >|   R G R G R|
+                                >|   R R R G R|
+                                >|     R G G R|
+                                >| R R R G R R|
+                                >| R R G G R  |
+                                >|         R  |
+                                >|   R R R R  |""".trimMargin(">")
 
             val expectedBoard = arrayOf(
                     arrayOf<PuyoType?>(null, null, null, null, null, null),

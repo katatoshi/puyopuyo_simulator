@@ -64,7 +64,7 @@ class PuyoBoardTest {
 
         @Test
         fun ぐねぐねした連結でもexplodeで消える() {
-            val test= """>|            |
+            val test = """>|            |
                          >|     R R R  |
                          >|         R  |
                          >|   R R R R R|
@@ -101,7 +101,7 @@ class PuyoBoardTest {
 
         @Test
         fun 連結していても4連結が一つもないなら何も消えない() {
-            val test= """>|            |
+            val test = """>|            |
                          >|            |
                          >|            |
                          >|            |
@@ -116,6 +116,43 @@ class PuyoBoardTest {
                          >| R R Y B G G|""".trimMargin(">")
 
             val expected = test
+
+            val sut = test.toPuyoBoard()
+
+            sut.explode()
+
+            assertThat(sut.toString(), `is`(expected))
+        }
+
+        @Test
+        fun 隣接しているおじゃまぷよも消える() {
+            val test = """>|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >| O B O      |
+                          >| O B O      |
+                          >| O B O O    |
+                          >| O B O O    |
+                          >| O O O O    |
+                          >| O O O O O O|
+                          >| O O R G O O|
+                          >| R R R G G G|""".trimMargin(">")
+
+            val expected = """>|            |
+                              >|            |
+                              >|            |
+                              >|            |
+                              >|            |
+                              >|            |
+                              >|            |
+                              >|       O    |
+                              >|       O    |
+                              >| O   O O    |
+                              >| O O     O O|
+                              >|            |
+                              >|            |""".trimMargin(">")
 
             val sut = test.toPuyoBoard()
 

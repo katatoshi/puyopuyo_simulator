@@ -1,6 +1,6 @@
 package com.katatoshi.puyopuyosimulator.model.entity
 
-import com.katatoshi.puyopuyosimulator.model.vo.PuyoColor
+import com.katatoshi.puyopuyosimulator.model.vo.ColorType
 import com.katatoshi.puyopuyosimulator.model.vo.PuyoType
 
 import org.junit.Assert.*
@@ -8,15 +8,15 @@ import org.junit.Test
 
 class PuyoBoardTest {
 
-    val r = PuyoType.ColoredPuyo(PuyoColor.RED);
+    val r = PuyoType.ColoredPuyo(ColorType.RED);
 
-    val g = PuyoType.ColoredPuyo(PuyoColor.GREEN);
+    val g = PuyoType.ColoredPuyo(ColorType.GREEN);
 
-    val b = PuyoType.ColoredPuyo(PuyoColor.BLUE);
+    val b = PuyoType.ColoredPuyo(ColorType.BLUE);
 
-    val y = PuyoType.ColoredPuyo(PuyoColor.YELLOW);
+    val y = PuyoType.ColoredPuyo(ColorType.YELLOW);
 
-    val v = PuyoType.ColoredPuyo(PuyoColor.VIOLET);
+    val v = PuyoType.ColoredPuyo(ColorType.VIOLET);
 
     @Test
     fun 幽霊まですべて同じ色で埋まっているフィールドをexplodeすると幽霊以外のすべてのぷよが消える() {

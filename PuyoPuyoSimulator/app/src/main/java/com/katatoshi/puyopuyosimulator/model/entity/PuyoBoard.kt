@@ -18,9 +18,8 @@ class PuyoBoard {
 
                 //region BFS
                 val rootCoordinate = Coordinate(row, column)
-                val bfsQueue = ArrayDeque(mutableListOf(rootCoordinate))
-
-                val visitedSet = mutableSetOf<Coordinate>()
+                val visitedSet = mutableSetOf(rootCoordinate)
+                val bfsQueue = ArrayDeque(visitedSet)
 
                 while (bfsQueue.isNotEmpty()) {
                     val coordinate = bfsQueue.poll()
@@ -28,12 +27,11 @@ class PuyoBoard {
 
                     require(current != null)
 
-                    visitedSet.add(coordinate)
-
                     // 右
                     if (coordinate.column < 5
                             && !visitedSet.contains(Coordinate(coordinate.row, coordinate.column + 1))
                             && board[coordinate.row][coordinate.column + 1]?.let { current == it } ?: false) {
+                        visitedSet.add(Coordinate(coordinate.row, coordinate.column + 1))
                         bfsQueue.offer(Coordinate(coordinate.row, coordinate.column + 1))
                     }
 
@@ -41,6 +39,7 @@ class PuyoBoard {
                     if (coordinate.row < 11
                             && !visitedSet.contains(Coordinate(coordinate.row + 1, coordinate.column))
                             && board[coordinate.row + 1][coordinate.column]?.let { current == it } ?: false) {
+                        visitedSet.add(Coordinate(coordinate.row + 1, coordinate.column))
                         bfsQueue.offer(Coordinate(coordinate.row + 1, coordinate.column))
                     }
 
@@ -48,6 +47,7 @@ class PuyoBoard {
                     if (0 < coordinate.column
                             && !visitedSet.contains(Coordinate(coordinate.row, coordinate.column - 1))
                             && board[coordinate.row][coordinate.column - 1]?.let { current == it } ?: false) {
+                        visitedSet.add(Coordinate(coordinate.row, coordinate.column - 1))
                         bfsQueue.offer(Coordinate(coordinate.row, coordinate.column - 1))
                     }
 
@@ -55,6 +55,7 @@ class PuyoBoard {
                     if (0 < coordinate.row
                             && !visitedSet.contains(Coordinate(coordinate.row - 1, coordinate.column))
                             && board[coordinate.row - 1][coordinate.column]?.let { current == it } ?: false) {
+                        visitedSet.add(Coordinate(coordinate.row - 1, coordinate.column))
                         bfsQueue.offer(Coordinate(coordinate.row - 1, coordinate.column))
                     }
                 }

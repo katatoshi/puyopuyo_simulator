@@ -157,6 +157,145 @@ class PuyoBoardTest {
         }
     }
 
+    class toPuyoBoardのテスト {
+
+        val r = PuyoType.ColoredPuyo(ColorType.RED)
+
+        val g = PuyoType.ColoredPuyo(ColorType.GREEN)
+
+        val b = PuyoType.ColoredPuyo(ColorType.BLUE)
+
+        val y = PuyoType.ColoredPuyo(ColorType.YELLOW)
+
+        val v = PuyoType.ColoredPuyo(ColorType.VIOLET)
+
+        @Test
+        fun 幽霊まですべて同じ色で埋まっているフィールド文字列をtoPuyoBoard() {
+            val testString =
+                    """>| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|""".trimMargin(">")
+
+            val expectedBoard = arrayOf(
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   )
+            ).reversedArray()
+
+            val sut = testString.toPuyoBoard()
+
+            for (row in 0..12) {
+                for (column in 0..5) {
+                    assertEquals(expectedBoard[row][column], sut.board[row][column])
+                }
+            }
+        }
+
+        @Test
+        fun ぐねぐねした連結をtoString() {
+            val testString =
+                    """>|            |
+                       >|     R R R  |
+                       >|         R  |
+                       >|   R R R R R|
+                       >|   R G G G R|
+                       >| R R G R G R|
+                       >|   R G R G R|
+                       >|   R R R G R|
+                       >|     R G G R|
+                       >| R R R G R R|
+                       >| R R G G R  |
+                       >|         R  |
+                       >|   R R R R  |""".trimMargin(">")
+
+            val expectedBoard = arrayOf(
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, r   , r   , r   , null),
+                    arrayOf<PuyoType?>(null, null, null, null, r   , null),
+                    arrayOf<PuyoType?>(null, r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(null, r   , g   , g   , g   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , g   , r   , g   , r   ),
+                    arrayOf<PuyoType?>(null, r   , g   , r   , g   , r   ),
+                    arrayOf<PuyoType?>(null, r   , r   , r   , g   , r   ),
+                    arrayOf<PuyoType?>(null, null, r   , g   , g   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , g   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , g   , g   , r   , null),
+                    arrayOf<PuyoType?>(null, null, null, null, r   , null),
+                    arrayOf<PuyoType?>(null, r   , r   , r   , r   , null)
+            ).reversedArray()
+
+            val sut = testString.toPuyoBoard()
+
+            for (row in 0..12) {
+                for (column in 0..5) {
+                    assertEquals(expectedBoard[row][column], sut.board[row][column])
+                }
+            }
+        }
+
+        @Test
+        fun GTRをtoString() {
+            val testString =
+                    """>|            |
+                       >|            |
+                       >|            |
+                       >|            |
+                       >|            |
+                       >|            |
+                       >|            |
+                       >|           V|
+                       >|         V V|
+                       >|       V Y Y|
+                       >| B R B Y G Y|
+                       >| B B R B B G|
+                       >| R R Y B G G|""".trimMargin(">")
+
+            val expectedBoard = arrayOf(
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, v   ),
+                    arrayOf<PuyoType?>(null, null, null, null, v   , v   ),
+                    arrayOf<PuyoType?>(null, null, null, v   , y   , y   ),
+                    arrayOf<PuyoType?>(b   , r   , b   , y   , g   , y   ),
+                    arrayOf<PuyoType?>(b   , b   , r   , b   , b   , g   ),
+                    arrayOf<PuyoType?>(r   , r   , y   , b   , g   , g   )
+            ).reversedArray()
+
+            val sut = testString.toPuyoBoard()
+
+            for (row in 0..12) {
+                for (column in 0..5) {
+                    assertEquals(expectedBoard[row][column], sut.board[row][column])
+                }
+            }
+        }
+    }
+
     class explode関数のテスト {
 
         val r = PuyoType.ColoredPuyo(ColorType.RED)

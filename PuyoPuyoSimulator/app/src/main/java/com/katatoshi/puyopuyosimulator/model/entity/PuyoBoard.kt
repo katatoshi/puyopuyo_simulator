@@ -111,3 +111,46 @@ class PuyoBoard {
      */
     data class Coordinate(val row: Int, val column: Int)
 }
+
+fun String.toPuyoBoard(): PuyoBoard {
+    val lineList = this.split('\n').reversed()
+
+    if (lineList.size != 13) {
+        throw IllegalStateException()
+    }
+
+    if (lineList.any { it.length != 6 * 2 + 2 }) {
+        throw IllegalStateException()
+    }
+
+    val parsedBoard = lineList.map { line ->
+        val body = line.substring(1, line.length - 1)
+        (0..5).toList().map {
+            body.substring(2 * it, 2 * it + 2)
+        }.map {
+            when (it) {
+                "  " -> null
+                " R" -> PuyoType.ColoredPuyo(ColorType.RED)
+                " G" -> PuyoType.ColoredPuyo(ColorType.GREEN)
+                " B" -> PuyoType.ColoredPuyo(ColorType.BLUE)
+                " Y" -> PuyoType.ColoredPuyo(ColorType.YELLOW)
+                " V" -> PuyoType.ColoredPuyo(ColorType.VIOLET)
+                " O" -> PuyoType.OjamaPuyo(OjamaType.OJAMA)
+                " P" -> PuyoType.OjamaPuyo(OjamaType.POINT)
+                " H" -> PuyoType.OjamaPuyo(OjamaType.HARD)
+                " I" -> PuyoType.OjamaPuyo(OjamaType.IRON)
+                else -> throw IllegalStateException()
+            }
+        }
+    }
+
+    val puyoBoard = PuyoBoard()
+
+    for (row in 0..12) {
+        for (column in 0..5) {
+            puyoBoard.board[row][column] = parsedBoard[row][column]
+        }
+    }
+
+    return puyoBoard
+}

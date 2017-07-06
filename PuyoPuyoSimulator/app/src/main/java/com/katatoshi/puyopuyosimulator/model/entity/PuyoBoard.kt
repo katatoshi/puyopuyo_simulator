@@ -1,5 +1,7 @@
 package com.katatoshi.puyopuyosimulator.model.entity
 
+import com.katatoshi.puyopuyosimulator.model.vo.ColorType
+import com.katatoshi.puyopuyosimulator.model.vo.OjamaType
 import com.katatoshi.puyopuyosimulator.model.vo.PuyoType
 import java.util.*
 
@@ -73,6 +75,34 @@ class PuyoBoard {
                     board[coordinate.row][coordinate.column] = null
                 }
             }
+        }
+    }
+
+    override fun toString(): String {
+        return board.reversedArray().map {
+            it.fold("|") { acc, puyoType ->
+                if (puyoType == null) {
+                    acc + "  "
+                } else {
+                    acc + when (puyoType) {
+                        is PuyoType.ColoredPuyo -> when (puyoType.colorType) {
+                            ColorType.RED -> " R"
+                            ColorType.GREEN -> " G"
+                            ColorType.BLUE -> " B"
+                            ColorType.YELLOW -> " Y"
+                            ColorType.VIOLET -> " V"
+                        }
+                        is PuyoType.OjamaPuyo -> when (puyoType.ojamaType) {
+                            OjamaType.OJAMA -> " O"
+                            OjamaType.POINT -> " P"
+                            OjamaType.HARD -> " H"
+                            OjamaType.IRON -> " I"
+                        }
+                    }
+                }
+            } + "|"
+        }.fold("") { acc, line ->
+            if (acc.isEmpty()) line else acc + "\n" + line
         }
     }
 

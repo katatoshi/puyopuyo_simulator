@@ -2,6 +2,7 @@ package com.katatoshi.puyopuyosimulator.model.entity
 
 import com.katatoshi.puyopuyosimulator.model.vo.ColorType
 import com.katatoshi.puyopuyosimulator.model.vo.PuyoType
+import org.hamcrest.CoreMatchers.`is`
 
 import org.junit.Assert.*
 import org.junit.Test
@@ -10,6 +11,151 @@ import org.junit.runner.RunWith
 
 @RunWith(Enclosed::class)
 class PuyoBoardTest {
+
+    class toStringのテスト {
+
+        val r = PuyoType.ColoredPuyo(ColorType.RED)
+
+        val g = PuyoType.ColoredPuyo(ColorType.GREEN)
+
+        val b = PuyoType.ColoredPuyo(ColorType.BLUE)
+
+        val y = PuyoType.ColoredPuyo(ColorType.YELLOW)
+
+        val v = PuyoType.ColoredPuyo(ColorType.VIOLET)
+
+        @Test
+        fun 幽霊まですべて同じ色で埋まっているフィールドをtoString() {
+            val testBoard = arrayOf(
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   )
+            ).reversedArray()
+
+            val expected =
+                    """>| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|
+                       >| R R R R R R|""".trimMargin(">")
+
+            val sut = PuyoBoard()
+
+            for (row in 0..12) {
+                for (column in 0..5) {
+                    sut.board[row][column] = testBoard[row][column]
+                }
+            }
+
+            assertThat(sut.toString(), `is`(expected))
+        }
+
+        @Test
+        fun ぐねぐねした連結をtoString() {
+            val testBoard = arrayOf(
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, r   , r   , r   , null),
+                    arrayOf<PuyoType?>(null, null, null, null, r   , null),
+                    arrayOf<PuyoType?>(null, r   , r   , r   , r   , r   ),
+                    arrayOf<PuyoType?>(null, r   , g   , g   , g   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , g   , r   , g   , r   ),
+                    arrayOf<PuyoType?>(null, r   , g   , r   , g   , r   ),
+                    arrayOf<PuyoType?>(null, r   , r   , r   , g   , r   ),
+                    arrayOf<PuyoType?>(null, null, r   , g   , g   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , r   , g   , r   , r   ),
+                    arrayOf<PuyoType?>(r   , r   , g   , g   , r   , null),
+                    arrayOf<PuyoType?>(null, null, null, null, r   , null),
+                    arrayOf<PuyoType?>(null, r   , r   , r   , r   , null)
+            ).reversedArray()
+
+            val expected =
+                    """>|            |
+                       >|     R R R  |
+                       >|         R  |
+                       >|   R R R R R|
+                       >|   R G G G R|
+                       >| R R G R G R|
+                       >|   R G R G R|
+                       >|   R R R G R|
+                       >|     R G G R|
+                       >| R R R G R R|
+                       >| R R G G R  |
+                       >|         R  |
+                       >|   R R R R  |""".trimMargin(">")
+
+            val sut = PuyoBoard()
+
+            for (row in 0..12) {
+                for (column in 0..5) {
+                    sut.board[row][column] = testBoard[row][column]
+                }
+            }
+
+            assertThat(sut.toString(), `is`(expected))
+        }
+
+        @Test
+        fun GTRをtoString() {
+            val testBoard = arrayOf(
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, null),
+                    arrayOf<PuyoType?>(null, null, null, null, null, v   ),
+                    arrayOf<PuyoType?>(null, null, null, null, v   , v   ),
+                    arrayOf<PuyoType?>(null, null, null, v   , y   , y   ),
+                    arrayOf<PuyoType?>(b   , r   , b   , y   , g   , y   ),
+                    arrayOf<PuyoType?>(b   , b   , r   , b   , b   , g   ),
+                    arrayOf<PuyoType?>(r   , r   , y   , b   , g   , g   )
+            ).reversedArray()
+
+            val expected =
+                    """>|            |
+                       >|            |
+                       >|            |
+                       >|            |
+                       >|            |
+                       >|            |
+                       >|            |
+                       >|           V|
+                       >|         V V|
+                       >|       V Y Y|
+                       >| B R B Y G Y|
+                       >| B B R B B G|
+                       >| R R Y B G G|""".trimMargin(">")
+
+            val sut = PuyoBoard()
+
+            for (row in 0..12) {
+                for (column in 0..5) {
+                    sut.board[row][column] = testBoard[row][column]
+                }
+            }
+
+            assertThat(sut.toString(), `is`(expected))
+        }
+    }
 
     class explode関数のテスト {
 

@@ -5,5 +5,5 @@ package com.katatoshi.puyopuyosimulator.model.vo
  */
 sealed class PuyoType {
     data class ColoredPuyo(val colorType: ColorType) : PuyoType()
-    object GarbagePuyo : PuyoType()
+    data class OjamaPuyo(val ojamaType: OjamaType) : PuyoType()
 }

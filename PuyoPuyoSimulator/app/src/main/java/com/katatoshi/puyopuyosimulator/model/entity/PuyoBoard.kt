@@ -27,36 +27,40 @@ class PuyoBoard {
 
                     require(current != null)
 
-                    // 右
-                    if (coordinate.column < 5
-                            && !visitedSet.contains(Coordinate(coordinate.row, coordinate.column + 1))
-                            && board[coordinate.row][coordinate.column + 1]?.let { current == it } ?: false) {
-                        visitedSet.add(Coordinate(coordinate.row, coordinate.column + 1))
-                        bfsQueue.offer(Coordinate(coordinate.row, coordinate.column + 1))
+                    // 右に連結しているか調べる
+                    if (coordinate.column < 5) {
+                        val rightCoordinate = Coordinate(coordinate.row, coordinate.column + 1)
+                        if (!visitedSet.contains(rightCoordinate) && board[rightCoordinate.row][rightCoordinate.column]?.let { current == it } ?: false) {
+                            visitedSet.add(rightCoordinate)
+                            bfsQueue.offer(rightCoordinate)
+                        }
                     }
 
-                    // 上
-                    if (coordinate.row < 11
-                            && !visitedSet.contains(Coordinate(coordinate.row + 1, coordinate.column))
-                            && board[coordinate.row + 1][coordinate.column]?.let { current == it } ?: false) {
-                        visitedSet.add(Coordinate(coordinate.row + 1, coordinate.column))
-                        bfsQueue.offer(Coordinate(coordinate.row + 1, coordinate.column))
+                    // 上に連結しているか調べる
+                    if (coordinate.row < 11) {
+                        val topCoordinate = Coordinate(coordinate.row + 1, coordinate.column)
+                        if (!visitedSet.contains(topCoordinate) && board[topCoordinate.row][topCoordinate.column]?.let { current == it } ?: false) {
+                            visitedSet.add(topCoordinate)
+                            bfsQueue.offer(topCoordinate)
+                        }
                     }
 
-                    // 左
-                    if (0 < coordinate.column
-                            && !visitedSet.contains(Coordinate(coordinate.row, coordinate.column - 1))
-                            && board[coordinate.row][coordinate.column - 1]?.let { current == it } ?: false) {
-                        visitedSet.add(Coordinate(coordinate.row, coordinate.column - 1))
-                        bfsQueue.offer(Coordinate(coordinate.row, coordinate.column - 1))
+                    // 左に連結しているか調べる
+                    if (0 < coordinate.column) {
+                        val leftCoordinate = Coordinate(coordinate.row, coordinate.column - 1)
+                        if (!visitedSet.contains(leftCoordinate) && board[leftCoordinate.row][leftCoordinate.column]?.let { current == it } ?: false) {
+                            visitedSet.add(leftCoordinate)
+                            bfsQueue.offer(leftCoordinate)
+                        }
                     }
 
-                    // 下
-                    if (0 < coordinate.row
-                            && !visitedSet.contains(Coordinate(coordinate.row - 1, coordinate.column))
-                            && board[coordinate.row - 1][coordinate.column]?.let { current == it } ?: false) {
-                        visitedSet.add(Coordinate(coordinate.row - 1, coordinate.column))
-                        bfsQueue.offer(Coordinate(coordinate.row - 1, coordinate.column))
+                    // 下に連結しているか調べる
+                    if (0 < coordinate.row) {
+                        val bottomCoordinate = Coordinate(coordinate.row - 1, coordinate.column)
+                        if (!visitedSet.contains(bottomCoordinate) && board[bottomCoordinate.row][bottomCoordinate.column]?.let { current == it } ?: false) {
+                            visitedSet.add(bottomCoordinate)
+                            bfsQueue.offer(bottomCoordinate)
+                        }
                     }
                 }
                 //endregion

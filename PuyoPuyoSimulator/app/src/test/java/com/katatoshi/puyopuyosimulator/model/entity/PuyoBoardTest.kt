@@ -51,20 +51,19 @@ class PuyoBoardTest {
                     arrayOf<PuyoType?>(r   , r   , i   , b   , g   , g   )
             ).reversedArray()
 
-            val expected =
-                    """>|            |
-                       >|            |
-                       >|            |
-                       >|            |
-                       >|            |
-                       >|            |
-                       >|           P|
-                       >|   H     P V|
-                       >| G G H H V V|
-                       >| O O O V Y Y|
-                       >| B R B Y G Y|
-                       >| B B R B B G|
-                       >| R R I B G G|""".trimMargin(">")
+            val expected = """>|            |
+                              >|            |
+                              >|            |
+                              >|            |
+                              >|            |
+                              >|            |
+                              >|           P|
+                              >|   H     P V|
+                              >| G G H H V V|
+                              >| O O O V Y Y|
+                              >| B R B Y G Y|
+                              >| B B R B B G|
+                              >| R R I B G G|""".trimMargin(">")
 
             val sut = PuyoBoard()
 
@@ -95,20 +94,19 @@ class PuyoBoardTest {
                     arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   )
             ).reversedArray()
 
-            val expected =
-                    """>| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|""".trimMargin(">")
+            val expected = """>| R R R R R R|
+                              >| R R R R R R|
+                              >| R R R R R R|
+                              >| R R R R R R|
+                              >| R R R R R R|
+                              >| R R R R R R|
+                              >| R R R R R R|
+                              >| R R R R R R|
+                              >| R R R R R R|
+                              >| R R R R R R|
+                              >| R R R R R R|
+                              >| R R R R R R|
+                              >| R R R R R R|""".trimMargin(">")
 
             val sut = PuyoBoard()
 
@@ -139,20 +137,19 @@ class PuyoBoardTest {
                     arrayOf<PuyoType?>(null, r   , r   , r   , r   , null)
             ).reversedArray()
 
-            val expected =
-                    """>|            |
-                       >|     R R R  |
-                       >|         R  |
-                       >|   R R R R R|
-                       >|   R G G G R|
-                       >| R R G R G R|
-                       >|   R G R G R|
-                       >|   R R R G R|
-                       >|     R G G R|
-                       >| R R R G R R|
-                       >| R R G G R  |
-                       >|         R  |
-                       >|   R R R R  |""".trimMargin(">")
+            val expected = """>|            |
+                              >|     R R R  |
+                              >|         R  |
+                              >|   R R R R R|
+                              >|   R G G G R|
+                              >| R R G R G R|
+                              >|   R G R G R|
+                              >|   R R R G R|
+                              >|     R G G R|
+                              >| R R R G R R|
+                              >| R R G G R  |
+                              >|         R  |
+                              >|   R R R R  |""".trimMargin(">")
 
             val sut = PuyoBoard()
 
@@ -183,20 +180,19 @@ class PuyoBoardTest {
                     arrayOf<PuyoType?>(r   , r   , y   , b   , g   , g   )
             ).reversedArray()
 
-            val expected =
-                    """>|            |
-                       >|            |
-                       >|            |
-                       >|            |
-                       >|            |
-                       >|            |
-                       >|            |
-                       >|           V|
-                       >|         V V|
-                       >|       V Y Y|
-                       >| B R B Y G Y|
-                       >| B B R B B G|
-                       >| R R Y B G G|""".trimMargin(">")
+            val expected = """>|            |
+                              >|            |
+                              >|            |
+                              >|            |
+                              >|            |
+                              >|            |
+                              >|            |
+                              >|           V|
+                              >|         V V|
+                              >|       V Y Y|
+                              >| B R B Y G Y|
+                              >| B B R B B G|
+                              >| R R Y B G G|""".trimMargin(">")
 
             val sut = PuyoBoard()
 
@@ -232,20 +228,19 @@ class PuyoBoardTest {
 
         @Test
         fun すべての種類のぷよが存在するフィールド文字列をtoPuyoBoard() {
-            val testString =
-                    """>|            |
-                       >|            |
-                       >|            |
-                       >|            |
-                       >|            |
-                       >|            |
-                       >|           P|
-                       >|   H     P V|
-                       >| G G H H V V|
-                       >| O O O V Y Y|
-                       >| B R B Y G Y|
-                       >| B B R B B G|
-                       >| R R I B G G|""".trimMargin(">")
+            val testString = """>|            |
+                                >|            |
+                                >|            |
+                                >|            |
+                                >|            |
+                                >|            |
+                                >|           P|
+                                >|   H     P V|
+                                >| G G H H V V|
+                                >| O O O V Y Y|
+                                >| B R B Y G Y|
+                                >| B B R B B G|
+                                >| R R I B G G|""".trimMargin(">")
 
             val expectedBoard = arrayOf(
                     arrayOf<PuyoType?>(null, null, null, null, null, null),
@@ -274,20 +269,19 @@ class PuyoBoardTest {
 
         @Test
         fun 幽霊まですべて同じ色で埋まっているフィールド文字列をtoPuyoBoard() {
-            val testString =
-                    """>| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|
-                       >| R R R R R R|""".trimMargin(">")
+            val testString = """>| R R R R R R|
+                                >| R R R R R R|
+                                >| R R R R R R|
+                                >| R R R R R R|
+                                >| R R R R R R|
+                                >| R R R R R R|
+                                >| R R R R R R|
+                                >| R R R R R R|
+                                >| R R R R R R|
+                                >| R R R R R R|
+                                >| R R R R R R|
+                                >| R R R R R R|
+                                >| R R R R R R|""".trimMargin(">")
 
             val expectedBoard = arrayOf(
                     arrayOf<PuyoType?>(r   , r   , r   , r   , r   , r   ),
@@ -358,20 +352,19 @@ class PuyoBoardTest {
 
         @Test
         fun GTRのフィールド文字列をtoPuyoBoard() {
-            val testString =
-                    """>|            |
-                       >|            |
-                       >|            |
-                       >|            |
-                       >|            |
-                       >|            |
-                       >|            |
-                       >|           V|
-                       >|         V V|
-                       >|       V Y Y|
-                       >| B R B Y G Y|
-                       >| B B R B B G|
-                       >| R R Y B G G|""".trimMargin(">")
+            val testString = """>|            |
+                                >|            |
+                                >|            |
+                                >|            |
+                                >|            |
+                                >|            |
+                                >|            |
+                                >|           V|
+                                >|         V V|
+                                >|       V Y Y|
+                                >| B R B Y G Y|
+                                >| B B R B B G|
+                                >| R R Y B G G|""".trimMargin(">")
 
             val expectedBoard = arrayOf(
                     arrayOf<PuyoType?>(null, null, null, null, null, null),
@@ -515,7 +508,6 @@ class PuyoBoardTest {
 
         @Test
         fun 連結していても4連結が一つもないなら何も消えない() {
-
             val testBoard = arrayOf(
                     arrayOf<PuyoType?>(null, null, null, null, null, null),
                     arrayOf<PuyoType?>(null, null, null, null, null, null),

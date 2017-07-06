@@ -16,7 +16,7 @@ class PuyoBoard {
                     continue
                 }
 
-                val candidateSet = mutableSetOf<Coordinate>()
+                val visitedSet = mutableSetOf<Coordinate>()
 
                 //region BFS
                 val rootCoordinate = Coordinate(row, column)
@@ -27,43 +27,43 @@ class PuyoBoard {
 
                     require(current != null)
 
-                    candidateSet.add(coordinate)
+                    visitedSet.add(coordinate)
 
                     // 右
                     if (coordinate.column < 5
-                            && !candidateSet.contains(Coordinate(coordinate.row, coordinate.column + 1))
+                            && !visitedSet.contains(Coordinate(coordinate.row, coordinate.column + 1))
                             && board[coordinate.row][coordinate.column + 1]?.let { current == it } ?: false) {
                         bfsQueue.offer(Coordinate(coordinate.row, coordinate.column + 1))
                     }
 
                     // 上
                     if (coordinate.row < 11
-                            && !candidateSet.contains(Coordinate(coordinate.row + 1, coordinate.column))
+                            && !visitedSet.contains(Coordinate(coordinate.row + 1, coordinate.column))
                             && board[coordinate.row + 1][coordinate.column]?.let { current == it } ?: false) {
                         bfsQueue.offer(Coordinate(coordinate.row + 1, coordinate.column))
                     }
 
                     // 左
                     if (0 < coordinate.column
-                            && !candidateSet.contains(Coordinate(coordinate.row, coordinate.column - 1))
+                            && !visitedSet.contains(Coordinate(coordinate.row, coordinate.column - 1))
                             && board[coordinate.row][coordinate.column - 1]?.let { current == it } ?: false) {
                         bfsQueue.offer(Coordinate(coordinate.row, coordinate.column - 1))
                     }
 
                     // 下
                     if (0 < coordinate.row
-                            && !candidateSet.contains(Coordinate(coordinate.row - 1, coordinate.column))
+                            && !visitedSet.contains(Coordinate(coordinate.row - 1, coordinate.column))
                             && board[coordinate.row - 1][coordinate.column]?.let { current == it } ?: false) {
                         bfsQueue.offer(Coordinate(coordinate.row - 1, coordinate.column))
                     }
                 }
                 //endregion
 
-                if (candidateSet.size < 4) {
+                if (visitedSet.size < 4) {
                     continue
                 }
 
-                for (coordinate in candidateSet) {
+                for (coordinate in visitedSet) {
                     board[coordinate.row][coordinate.column] = null
                 }
             }

@@ -55,18 +55,18 @@ class PuyoBoardTest {
         @Test
         fun ぐねぐねした連結でもexplodeで消える() {
             val test = """>|            |
-                         >|     R R R  |
-                         >|         R  |
-                         >|   R R R R R|
-                         >|   R G G G R|
-                         >| R R G R G R|
-                         >|   R G R G R|
-                         >|   R R R G R|
-                         >|     R G G R|
-                         >| R R R G R R|
-                         >| R R G G R  |
-                         >|         R  |
-                         >|   R R R R  |""".trimMargin(">")
+                          >|     R R R  |
+                          >|         R  |
+                          >|   R R R R R|
+                          >|   R G G G R|
+                          >| R R G R G R|
+                          >|   R G R G R|
+                          >|   R R R G R|
+                          >|     R G G R|
+                          >| R R R G R R|
+                          >| R R G G R  |
+                          >|         R  |
+                          >|   R R R R  |""".trimMargin(">")
 
             val expected = """>|            |
                               >|            |
@@ -92,18 +92,18 @@ class PuyoBoardTest {
         @Test
         fun 連結していても4連結が一つもないなら何も消えない() {
             val test = """>|            |
-                         >|            |
-                         >|            |
-                         >|            |
-                         >|            |
-                         >|            |
-                         >|            |
-                         >|           V|
-                         >|         V V|
-                         >|       V Y Y|
-                         >| B R B Y G Y|
-                         >| B B R B B G|
-                         >| R R Y B G G|""".trimMargin(">")
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|           V|
+                          >|         V V|
+                          >|       V Y Y|
+                          >| B R B Y G Y|
+                          >| B B R B B G|
+                          >| R R Y B G G|""".trimMargin(">")
 
             val expected = test
 

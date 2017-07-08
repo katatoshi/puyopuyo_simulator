@@ -286,6 +286,32 @@ class PuyoBoardTest {
 
             assertThat(sut.toString(), `is`(expected))
         }
+
+        @Test
+        fun 色ぷよは1つだけで隣接するおじゃまぷよが3つでも何も消えない() {
+            val test = """>|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|   O        |
+                          >| O R O      |""".trimMargin(">")
+
+            val expected = test
+
+            val sut = test.toPuyoBoard()
+
+            sut.explode()
+
+            assertThat(sut.toString(), `is`(expected))
+
+        }
     }
 
     class toPuyoBoardのテスト {

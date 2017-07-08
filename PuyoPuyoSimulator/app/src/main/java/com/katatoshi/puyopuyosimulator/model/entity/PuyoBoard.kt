@@ -22,8 +22,10 @@ class PuyoBoard {
                     continue
                 }
 
-                //region BFS
                 val rootCoordinate = Coordinate(row, column)
+                val connectedSet = mutableSetOf(rootCoordinate)
+
+                //region BFS
                 val visitedSet = mutableSetOf(rootCoordinate)
                 val bfsQueue = ArrayDeque(visitedSet)
 
@@ -41,6 +43,7 @@ class PuyoBoard {
                             when (right) {
                                 current -> {
                                     visitedSet.add(rightCoordinate)
+                                    connectedSet.add(rightCoordinate)
                                     bfsQueue.offer(rightCoordinate)
                                 }
                                 PuyoType.OjamaPuyo(OjamaType.OJAMA) -> {
@@ -58,6 +61,7 @@ class PuyoBoard {
                             when (top) {
                                 current -> {
                                     visitedSet.add(topCoordinate)
+                                    connectedSet.add(topCoordinate)
                                     bfsQueue.offer(topCoordinate)
                                 }
                                 PuyoType.OjamaPuyo(OjamaType.OJAMA) -> {
@@ -75,6 +79,7 @@ class PuyoBoard {
                             when (left) {
                                 current -> {
                                     visitedSet.add(leftCoordinate)
+                                    connectedSet.add(leftCoordinate)
                                     bfsQueue.offer(leftCoordinate)
                                 }
                                 PuyoType.OjamaPuyo(OjamaType.OJAMA) -> {
@@ -92,6 +97,7 @@ class PuyoBoard {
                             when (bottom) {
                                 current -> {
                                     visitedSet.add(bottomCoordinate)
+                                    connectedSet.add(bottomCoordinate)
                                     bfsQueue.offer(bottomCoordinate)
                                 }
                                 PuyoType.OjamaPuyo(OjamaType.OJAMA) -> {
@@ -103,7 +109,7 @@ class PuyoBoard {
                 }
                 //endregion
 
-                if (visitedSet.size < 4) {
+                if (connectedSet.size < 4) {
                     continue
                 }
 

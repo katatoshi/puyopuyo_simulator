@@ -114,8 +114,18 @@ class PuyoBoard {
         }
     }
 
-    override fun toString(): String {
-        return board.reversedArray().map {
+    override fun toString(): String = puyoBoardToString(this)
+
+    /**
+     * 座標を表すデータクラス。
+     */
+    data class Coordinate(val row: Int, val column: Int)
+}
+
+fun String.toPuyoBoard(): PuyoBoard = stringToPuyoBoard(this)
+
+private fun puyoBoardToString(puyoBoard: PuyoBoard): String =
+        puyoBoard.board.reversedArray().map {
             it.fold("|") { acc, puyoType ->
                 if (puyoType == null) {
                     acc + "  "
@@ -140,16 +150,9 @@ class PuyoBoard {
         }.fold("") { acc, line ->
             if (acc.isEmpty()) line else acc + "\n" + line
         }
-    }
 
-    /**
-     * 座標を表すデータクラス。
-     */
-    data class Coordinate(val row: Int, val column: Int)
-}
-
-fun String.toPuyoBoard(): PuyoBoard {
-    val lineList = this.split('\n').reversed()
+private fun stringToPuyoBoard(string: String): PuyoBoard {
+    val lineList = string.split('\n').reversed()
 
     if (lineList.size != 13) {
         throw IllegalStateException()
@@ -189,4 +192,5 @@ fun String.toPuyoBoard(): PuyoBoard {
     }
 
     return puyoBoard
+
 }

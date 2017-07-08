@@ -15,16 +15,6 @@ class PuyoBoardTest {
 
     class explode関数のテスト {
 
-        val r = PuyoType.ColoredPuyo(ColorType.RED)
-
-        val g = PuyoType.ColoredPuyo(ColorType.GREEN)
-
-        val b = PuyoType.ColoredPuyo(ColorType.BLUE)
-
-        val y = PuyoType.ColoredPuyo(ColorType.YELLOW)
-
-        val v = PuyoType.ColoredPuyo(ColorType.VIOLET)
-
         @Test
         fun 幽霊まですべて同じ色で埋まっているフィールドをexplodeすると幽霊以外のすべてのぷよが消える() {
             val test = """>| R R R R R R|

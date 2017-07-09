@@ -4,6 +4,7 @@ import com.katatoshi.puyopuyosimulator.model.vo.ColorType
 import com.katatoshi.puyopuyosimulator.model.vo.OjamaType
 import com.katatoshi.puyopuyosimulator.model.vo.PuyoType
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.nullValue
 
 import org.junit.Assert.*
 import org.junit.Test
@@ -311,6 +312,191 @@ class PuyoBoardTest {
 
             assertThat(sut.toString(), `is`(expected))
 
+        }
+
+        @Test
+        fun 何も消えないフィールドの発火ボーナスはnull() {
+            val test = """>|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >| R G        |
+                          >| R G        |
+                          >| R G        |""".trimMargin(">")
+
+            val sut = test.toPuyoBoard()
+
+            val result = sut.explode()
+
+            assertThat(result, `is`(nullValue()))
+        }
+
+        @Test
+        fun 単色4連結1つならcountBonusは40でconnectionBonusは0でcolorBonusは0() {
+            val test = """>|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >| R          |
+                          >| R          |
+                          >| R          |
+                          >| R          |""".trimMargin(">")
+
+            val expected = PuyoBoard.ExplosionBonus(40, 0, 0)
+
+            val sut = test.toPuyoBoard()
+
+            val result = sut.explode()
+
+            assertThat(result?.countBonus, `is`(expected.countBonus))
+            assertThat(result?.connectionBonus, `is`(expected.connectionBonus))
+            assertThat(result?.colorBonus, `is`(expected.colorBonus))
+        }
+
+        @Test
+        fun 単色8連結1つならcountBonusは80でconnectionBonusは5でcolorBonusは0() {
+            val test = """>|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >| R R        |
+                          >| R R        |
+                          >| R R        |
+                          >| R R        |""".trimMargin(">")
+
+            val expected = PuyoBoard.ExplosionBonus(80, 5, 0)
+
+            val sut = test.toPuyoBoard()
+
+            val result = sut.explode()
+
+            assertThat(result?.countBonus, `is`(expected.countBonus))
+            assertThat(result?.connectionBonus, `is`(expected.connectionBonus))
+            assertThat(result?.colorBonus, `is`(expected.colorBonus))
+        }
+
+        @Test
+        fun 単色4連結2つならcountBonusは80でconnectionBonusは0でcolorBonusは0() {
+            val test = """>|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >| R   R      |
+                          >| R   R      |
+                          >| R   R      |
+                          >| R   R      |""".trimMargin(">")
+
+            val expected = PuyoBoard.ExplosionBonus(80, 0, 0)
+
+            val sut = test.toPuyoBoard()
+
+            val result = sut.explode()
+
+            assertThat(result?.countBonus, `is`(expected.countBonus))
+            assertThat(result?.connectionBonus, `is`(expected.connectionBonus))
+            assertThat(result?.colorBonus, `is`(expected.colorBonus))
+        }
+
+        @Test
+        fun 二色4連結1つずつならcountBonusは80でconnectionBonusは0でcolorBonusは3() {
+            val test = """>|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >| R G        |
+                          >| R G        |
+                          >| R G        |
+                          >| R G        |""".trimMargin(">")
+
+            val expected = PuyoBoard.ExplosionBonus(80, 0, 3)
+
+            val sut = test.toPuyoBoard()
+
+            val result = sut.explode()
+
+            assertThat(result?.countBonus, `is`(expected.countBonus))
+            assertThat(result?.connectionBonus, `is`(expected.connectionBonus))
+            assertThat(result?.colorBonus, `is`(expected.colorBonus))
+        }
+
+        @Test
+        fun 三色8連結1つずつならcountBonusは240でconnectionBonusは15でcolorBonusは6() {
+            val test = """>|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >| R G B      |
+                          >| R G B      |
+                          >| R G B      |
+                          >| R G B      |
+                          >| R G B      |
+                          >| R G B      |
+                          >| R G B      |
+                          >| R G B      |""".trimMargin(">")
+
+            val expected = PuyoBoard.ExplosionBonus(240, 15, 6)
+
+            val sut = test.toPuyoBoard()
+
+            val result = sut.explode()
+
+            assertThat(result?.countBonus, `is`(expected.countBonus))
+            assertThat(result?.connectionBonus, `is`(expected.connectionBonus))
+            assertThat(result?.colorBonus, `is`(expected.colorBonus))
+        }
+
+        @Test
+        fun 単色4連結1つならおじゃまぷよが周囲にあってもcountBonusは40でconnectionBonusは0でcolorBonusは0() {
+            val test = """>|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >|            |
+                          >| O R R R R O|
+                          >| O O O O O O|""".trimMargin(">")
+
+            val expected = PuyoBoard.ExplosionBonus(40, 0, 0)
+
+            val sut = test.toPuyoBoard()
+
+            val result = sut.explode()
+
+            assertThat(result?.countBonus, `is`(expected.countBonus))
+            assertThat(result?.connectionBonus, `is`(expected.connectionBonus))
+            assertThat(result?.colorBonus, `is`(expected.colorBonus))
         }
     }
 

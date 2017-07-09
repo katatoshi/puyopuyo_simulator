@@ -11,14 +11,19 @@ import java.util.*
 class PuyoBoard {
     val board = (1..13).toList().map { arrayOfNulls<PuyoType>(6) }.toTypedArray()
 
-    fun explode() {
+    fun explode(): ExplosionBonus? {
+        val connectionSizeList = mutableListOf<Int>()
+        val colorTypeSet = mutableSetOf<ColorType>()
+
         for (row in 0..11) {
             for (column in 0..5) {
-                if (board[row][column] == null) {
-                    continue
+                val root = board[row][column]
+                val rootColor = when (root) {
+                    is PuyoType.ColoredPuyo -> root.colorType
+                    else -> null
                 }
 
-                if (board[row][column] is PuyoType.OjamaPuyo) {
+                if (rootColor == null) {
                     continue
                 }
 
@@ -113,10 +118,23 @@ class PuyoBoard {
                     continue
                 }
 
+                connectionSizeList.add(connectedSet.size)
+                colorTypeSet.add(rootColor)
+
                 for (coordinate in visitedSet) {
                     board[coordinate.row][coordinate.column] = null
                 }
             }
+        }
+
+        return if (0 < connectionSizeList.size && 0 < colorTypeSet.size) {
+            ExplosionBonus(
+                    countBonus = connectionSizeList.sum() * 10,
+                    connectionBonus = connectionSizeList.map(::connectionBonusTable).sum(),
+                    colorBonus = colorBonusTable(colorTypeSet.size)
+            )
+        } else {
+            null
         }
     }
 
@@ -126,9 +144,43 @@ class PuyoBoard {
      * 座標を表すデータクラス。
      */
     data class Coordinate(val row: Int, val column: Int)
+
+    /**
+     * 一回の発火のボーナスを表すデータクラス。
+     */
+    data class ExplosionBonus(val countBonus: Int, val connectionBonus: Int, val colorBonus: Int)
 }
 
 fun String.toPuyoBoard(): PuyoBoard = stringToPuyoBoard(this)
+
+/**
+ * 連結ボーナス表。複数色で連結がある場合や、同色で複数の連結がある場合は、それぞれの連結に対してこの表を適用し、最後に合計をとる。
+ */
+private fun connectionBonusTable(connectionSize: Int): Int = when {
+    connectionSize ==  2 ->  0
+    connectionSize ==  3 ->  0
+    connectionSize ==  4 ->  0
+    connectionSize ==  5 ->  2
+    connectionSize ==  6 ->  3
+    connectionSize ==  7 ->  4
+    connectionSize ==  8 ->  5
+    connectionSize ==  9 ->  6
+    connectionSize == 10 ->  7
+    connectionSize >= 11 -> 10
+    else -> throw IllegalStateException("connectionSize の範囲は 2 <= connectionSize です。")
+}
+
+/**
+ * 色数ボーナス表。
+ */
+private fun colorBonusTable(countColorType: Int): Int = when (countColorType) {
+    1 ->  0
+    2 ->  3
+    3 ->  6
+    4 -> 12
+    5 -> 24
+    else -> throw IllegalStateException("countColorType の範囲は 1 <= countColorType <= 5 です。")
+}
 
 private fun puyoBoardToString(puyoBoard: PuyoBoard): String =
         puyoBoard.board.reversedArray().map {
@@ -198,5 +250,4 @@ private fun stringToPuyoBoard(string: String): PuyoBoard {
     }
 
     return puyoBoard
-
 }

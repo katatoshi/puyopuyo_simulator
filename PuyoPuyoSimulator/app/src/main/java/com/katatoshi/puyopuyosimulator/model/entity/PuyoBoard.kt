@@ -250,5 +250,4 @@ private fun stringToPuyoBoard(string: String): PuyoBoard {
     }
 
     return puyoBoard
-
 }
